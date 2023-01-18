@@ -12,7 +12,7 @@
 		    left: 50%;
 		    margin-right: -50%;
 		    transform: translate(-50%, -50%);
-			font-size: 84px;
+			font-size: 24px;
 		}
 		</style>
 	</head>
