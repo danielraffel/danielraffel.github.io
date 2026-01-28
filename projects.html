@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Generous Corp</title>
+    <style>
+        :root {
+            --bg-color: #F7F7F7;
+            --card-bg: #FFFFFF;
+            --text-color: #111111;
+            --secondary-text: #555555;
+            --border-color: #E0E0E0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+        }
+
+        header {
+            padding: 4rem 2rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin: 0;
+        }
+
+        .home-link {
+            display: block;
+            margin-bottom: 1rem;
+            text-decoration: none;
+            color: var(--secondary-text);
+            font-size: 0.9rem;
+        }
+
+        .home-link:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 6rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.2s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-color: #CCCCCC;
+        }
+
+        .project-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .project-description {
+            font-size: 0.95rem;
+            color: var(--secondary-text);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .project-link {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--text-color);
+            align-self: flex-start;
+            padding-bottom: 2px;
+        }
+
+        .project-link::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        @media (hover: hover) {
+            .project-link:hover {
+                opacity: 0.6;
+            }
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background-color: #EEE;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-bottom: 0.8rem;
+            color: #666;
+            width: fit-content;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="home-link">← Back to Home</a>
+        <h1>Veracious Projects</h1>
+    </header>
+
+    <main>
+        <!-- Asciicinema Ghost -->
+        <article class="project-card">
+            <span class="badge">Web Utility</span>
+            <h2 class="project-title">Asciicinema Ghost</h2>
+            <p class="project-description">A single-file site to scrub Asciinema casts, grab precise start/end times, and generate Ghost.org-friendly embed snippets.</p>
+            <a href="https://www.generouscorp.com/asciicinema-ghost/" class="project-link" target="_blank">View Tool</a>
+        </article>
+
+        <!-- Braidy -->
+        <article class="project-card">
+            <span class="badge">JUCE AU/VST Plugin</span>
+            <h2 class="project-title">Braidy</h2>
+            <p class="project-description">A port of the Mutable Instruments Braids module available as a software instrument for macOS (AU/VST/Standalone).</p>
+            <a href="https://github.com/danielraffel/braidy" class="project-link" target="_blank">View on GitHub</a>
+        </article>
+
+        <!-- Chainer -->
+        <article class="project-card">
+            <span class="badge">Claude Code Plugin</span>
+            <h2 class="project-title">Chainer</h2>
+            <p class="project-description">Tell Claude Code what you want to build and it will find the right plugins and build it automatically.</p>
+            <a href="https://www.generouscorp.com/generous-corp-marketplace/plugins/chainer/" class="project-link" target="_blank">View Plugin</a>
+        </article>
+
+        <!-- Claude Plugin List -->
+        <article class="project-card">
+            <span class="badge">Web Utility</span>
+            <h2 class="project-title">Claude Plugin List</h2>
+            <p class="project-description">A daily updated JSON registry of Claude plugins and marketplaces available on GitHub.</p>
+            <a href="https://www.generouscorp.com/claude-plugin-list/" class="project-link" target="_blank">View List</a>
+        </article>
+
+        <!-- Commands -->
+        <article class="project-card">
+            <span class="badge">VS Code Extension</span>
+            <h2 class="project-title">Commands</h2>
+            <p class="project-description">Open your favorite AI agents in tabs alongside your code. Launch several at once and free them from sidebar panels.</p>
+            <a href="https://www.generouscorp.com/Commands/" class="project-link" target="_blank">View Extension</a>
+        </article>
+
+        <!-- Design Partner -->
+        <article class="project-card">
+            <span class="badge">Claude Code Plugin</span>
+            <h2 class="project-title">Design Partner</h2>
+            <p class="project-description">Turns conversations into visuals. Describe what you're imagining, and see it instantly.</p>
+            <a href="https://www.generouscorp.com/generous-corp-marketplace/plugins/design-partner/" class="project-link" target="_blank">View Plugin</a>
+        </article>
+
+        <!-- Golden Gate Bridge Weather -->
+        <article class="project-card">
+            <span class="badge">iOS App</span>
+            <h2 class="project-title">Golden Gate Bridge Weather</h2>
+            <p class="project-description">Real-time weather for the bridge on iOS and macOS, featuring live condition screenshots.</p>
+            <a href="https://testflight.apple.com/join/KmJz8T2g" class="project-link" target="_blank">Join TestFlight</a>
+        </article>
+
+        <!-- Griddy -->
+        <article class="project-card">
+            <span class="badge">JUCE AU/VST Plugin</span>
+            <h2 class="project-title">Griddy</h2>
+            <p class="project-description">A port of the Mutable Instruments Grids module functioning as a MIDI effect for macOS (AU/VST).</p>
+            <a href="https://github.com/danielraffel/Griddy-MIDI-Effect-Plugin" class="project-link" target="_blank">View on GitHub</a>
+        </article>
+
+        <!-- Homebar -->
+        <article class="project-card">
+            <span class="badge">macOS App</span>
+            <h2 class="project-title">Homebar</h2>
+            <p class="project-description">Control your HomeKit devices, shortcuts, and automations directly from the Mac menu bar.</p>
+            <a href="https://www.generouscorp.com/homebar/" class="project-link" target="_blank">View App</a>
+        </article>
+
+        <!-- JUCE Plugin Starter -->
+        <article class="project-card">
+            <span class="badge">Developer Tool</span>
+            <h2 class="project-title">JUCE Plugin Starter</h2>
+            <p class="project-description">A template for folks interested in making and distributing audio plugins quickly.</p>
+            <a href="https://github.com/danielraffel/JUCE-Plugin-Starter" class="project-link" target="_blank">View on GitHub</a>
+        </article>
+
+        <!-- n8n gcp -->
+        <article class="project-card">
+            <span class="badge">Script</span>
+            <h2 class="project-title">n8n gcp</h2>
+            <p class="project-description">Automates the setup of n8n on a Google Cloud Platform instance.</p>
+            <a href="https://github.com/danielraffel/n8n-gcp" class="project-link" target="_blank">View on GitHub</a>
+        </article>
+
+        <!-- Plundertube -->
+        <article class="project-card">
+            <span class="badge">JUCE AU/VST Plugin</span>
+            <h2 class="project-title">Plundertube</h2>
+            <p class="project-description">An AU, VST, and Standalone macOS app that allows you to sample directly from YouTube.</p>
+            <a href="https://plundertube.com/" class="project-link" target="_blank">Visit Website</a>
+        </article>
+
+        <!-- Prompt Repeater -->
+        <article class="project-card">
+            <span class="badge">Claude Code Plugin</span>
+            <h2 class="project-title">Prompt Repeater</h2>
+            <p class="project-description">Applies Google Research's prompt repetition technique to improve Claude's accuracy on non-reasoning tasks.</p>
+            <a href="https://www.generouscorp.com/generous-corp-marketplace/plugins/prompt-repeater/" class="project-link" target="_blank">View Plugin</a>
+        </article>
+
+        <!-- Proxy Manager -->
+        <article class="project-card">
+            <span class="badge">macOS Utility</span>
+            <h2 class="project-title">Proxy Manager</h2>
+            <p class="project-description">An AI gateway for JUCE, Swift, and NextJS projects. Use your Claude and Codex subscriptions directly while developing.</p>
+            <a href="https://www.generouscorp.com/proxymanager-releases/" class="project-link" target="_blank">View Release</a>
+        </article>
+
+        <!-- Solar Showdown -->
+        <article class="project-card">
+            <span class="badge">Web Based Utility</span>
+            <h2 class="project-title">Solar Showdown</h2>
+            <p class="project-description">Share your energy usage data and compete with friends in this social energy tracking platform.</p>
+            <a href="https://www.generouscorp.com/solarshowdown-data/" class="project-link" target="_blank">View Data</a>
+        </article>
+
+        <!-- Switch -->
+        <article class="project-card">
+            <span class="badge">Script</span>
+            <h2 class="project-title">Switch</h2>
+            <p class="project-description">A macOS bash script that simplifies managing multiple Google Cloud configurations with user-friendly shortcuts.</p>
+            <a href="https://github.com/danielraffel/Switch" class="project-link" target="_blank">View on GitHub</a>
+        </article>
+
+        <!-- Void Hunters -->
+        <article class="project-card">
+            <span class="badge">Web Game</span>
+            <h2 class="project-title">Void Hunters</h2>
+            <p class="project-description">A Galaxia-style web game created in 9 minutes using Chainer.</p>
+            <a href="https://www.generouscorp.com/voidhunters" class="project-link" target="_blank">Play Game</a>
+        </article>
+
+        <!-- Worktree Manager -->
+        <article class="project-card">
+            <span class="badge">Claude Code Plugin</span>
+            <h2 class="project-title">Worktree Manager</h2>
+            <p class="project-description">Creates isolated git worktrees for parallel feature development. Handles the tedious setup so you can focus on building.</p>
+            <a href="https://www.generouscorp.com/generous-corp-marketplace/plugins/worktree-manager/" class="project-link" target="_blank">View Plugin</a>
+        </article>
+
+    </main>
+
+</body>
+</html>
