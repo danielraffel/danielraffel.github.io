@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
     <title>Projects | Generous Corp</title>
     <meta name="description" content="Open source tools, apps, and plugins from Generous Corp.">
 
@@ -21,11 +22,30 @@
 
     <style>
         :root {
+            color-scheme: light dark;
             --bg-color: #F7F7F7;
             --card-bg: #FFFFFF;
             --text-color: #111111;
             --secondary-text: #555555;
             --border-color: #E0E0E0;
+            --border-hover: #CCCCCC;
+            --card-shadow: rgba(0, 0, 0, 0.05);
+            --badge-bg: #EEEEEE;
+            --badge-text: #666666;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0F1115;
+                --card-bg: #161A22;
+                --text-color: #F2F4F8;
+                --secondary-text: #B1B7C4;
+                --border-color: #2B3443;
+                --border-hover: #3A4557;
+                --card-shadow: rgba(0, 0, 0, 0.45);
+                --badge-bg: #232B38;
+                --badge-text: #C3CAD6;
+            }
         }
 
         body {
@@ -84,8 +104,8 @@
         }
 
         .project-card:hover {
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border-color: #CCCCCC;
+            box-shadow: 0 10px 30px var(--card-shadow);
+            border-color: var(--border-hover);
         }
 
         .project-title {
@@ -131,11 +151,11 @@
             font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            background-color: #EEE;
+            background-color: var(--badge-bg);
             padding: 4px 8px;
             border-radius: 4px;
             margin-bottom: 0.8rem;
-            color: #666;
+            color: var(--badge-text);
             width: fit-content;
         }
     </style>
@@ -389,6 +409,26 @@
         </article>
 
     </main>
+
+    <script>
+        (function setBackLinkFromReferrer() {
+            const homeLink = document.querySelector(".home-link");
+            if (!homeLink || !document.referrer) {
+                return;
+            }
+
+            try {
+                const referrerUrl = new URL(document.referrer);
+                const allowedReferrerHosts = new Set(["danielraffel.me", "www.danielraffel.me"]);
+
+                if (allowedReferrerHosts.has(referrerUrl.hostname)) {
+                    homeLink.href = document.referrer;
+                }
+            } catch {
+                // Keep default href when referrer cannot be parsed.
+            }
+        })();
+    </script>
 
 </body>
 </html>
