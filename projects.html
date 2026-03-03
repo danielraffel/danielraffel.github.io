@@ -82,6 +82,54 @@
             text-decoration: underline;
         }
 
+        .filters-wrap {
+            margin-top: 1.25rem;
+            display: grid;
+            gap: 0.6rem;
+        }
+
+        .filters-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--secondary-text);
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .chip {
+            border: 1px solid var(--border-color);
+            background: var(--badge-bg);
+            color: var(--text-color);
+            padding: 0.45rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.72rem;
+            line-height: 1;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        }
+
+        .chip:hover {
+            border-color: var(--border-hover);
+        }
+
+        .chip.active {
+            background: var(--text-color);
+            border-color: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        .chip:focus-visible {
+            outline: 2px solid var(--text-color);
+            outline-offset: 2px;
+        }
+
         main {
             max-width: 1200px;
             margin: 0 auto;
@@ -158,6 +206,20 @@
             color: var(--badge-text);
             width: fit-content;
         }
+
+        .no-results {
+            grid-column: 1 / -1;
+            display: none;
+            border: 1px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+            color: var(--secondary-text);
+            background: var(--card-bg);
+        }
+
+        .no-results.show {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -165,6 +227,10 @@
     <header>
         <a href="index.html" class="home-link">← Back to Home</a>
         <h1>Projects</h1>
+        <div class="filters-wrap" aria-label="Project filters">
+            <div class="filters-label">Filter by tag</div>
+            <div class="categories" id="project-filters"></div>
+        </div>
     </header>
 
     <main>
@@ -416,6 +482,8 @@
             <a href="https://www.generouscorp.com/generous-corp-marketplace/plugins/worktree-manager/" class="project-link" target="_blank">Get the Plugin</a>
         </article>
 
+        <div class="no-results" id="no-filter-results">No projects match this tag yet.</div>
+
     </main>
 
     <script>
@@ -432,9 +500,74 @@
                 if (allowedReferrerHosts.has(referrerUrl.hostname)) {
                     homeLink.href = document.referrer;
                 }
-            } catch {
+            } catch (error) {
                 // Keep default href when referrer cannot be parsed.
             }
+        })();
+
+        (function initProjectTagFilters() {
+            const filterRoot = document.getElementById("project-filters");
+            const cards = Array.from(document.querySelectorAll(".project-card"));
+            const noResults = document.getElementById("no-filter-results");
+
+            if (!filterRoot || cards.length === 0) {
+                return;
+            }
+
+            const readTag = (card) => {
+                const badge = card.querySelector(".badge");
+                return badge ? badge.textContent.trim() : "Other";
+            };
+
+            const tags = [...new Set(cards.map(readTag))].sort((a, b) => a.localeCompare(b));
+            const ALL_TAG = "__all__";
+            let activeTag = ALL_TAG;
+
+            const makeChip = (label, tag) => {
+                const button = document.createElement("button");
+                button.type = "button";
+                button.className = "chip";
+                button.dataset.tag = tag;
+                button.textContent = label;
+                return button;
+            };
+
+            const chips = [makeChip("All", ALL_TAG), ...tags.map((tag) => makeChip(tag, tag))];
+            chips[0].classList.add("active");
+            chips.forEach((chip) => filterRoot.appendChild(chip));
+
+            const applyFilter = () => {
+                let visibleCount = 0;
+
+                cards.forEach((card) => {
+                    const matches = activeTag === ALL_TAG || readTag(card) === activeTag;
+                    card.hidden = !matches;
+                    if (matches) {
+                        visibleCount += 1;
+                    }
+                });
+
+                chips.forEach((chip) => {
+                    chip.classList.toggle("active", chip.dataset.tag === activeTag);
+                });
+
+                if (noResults) {
+                    noResults.classList.toggle("show", visibleCount === 0);
+                }
+            };
+
+            filterRoot.addEventListener("click", (event) => {
+                const target = event.target instanceof Element ? event.target : null;
+                const chip = target ? target.closest(".chip") : null;
+                if (!chip) {
+                    return;
+                }
+
+                activeTag = chip.dataset.tag || ALL_TAG;
+                applyFilter();
+            });
+
+            applyFilter();
         })();
     </script>
 
