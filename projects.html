@@ -101,6 +101,67 @@
             gap: 0.5rem;
         }
 
+        .filter-menu {
+            width: fit-content;
+            max-width: 100%;
+        }
+
+        .filter-summary {
+            list-style: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            color: var(--text-color);
+            border-radius: 999px;
+            padding: 0.5rem 0.8rem;
+            font-size: 0.78rem;
+            letter-spacing: 0.03em;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .filter-summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .filter-summary:hover {
+            border-color: var(--border-hover);
+        }
+
+        .filter-summary-label {
+            text-transform: uppercase;
+            color: var(--secondary-text);
+        }
+
+        .filter-summary-value {
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .filter-summary-count {
+            color: var(--secondary-text);
+        }
+
+        .filter-chevron {
+            color: var(--secondary-text);
+            transition: transform 0.2s ease;
+        }
+
+        .filter-menu[open] .filter-chevron {
+            transform: rotate(180deg);
+        }
+
+        .filter-popover {
+            margin-top: 0.6rem;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 0.75rem;
+            box-shadow: 0 8px 24px var(--card-shadow);
+        }
+
         .chip {
             border: 1px solid var(--border-color);
             background: var(--badge-bg);
@@ -233,7 +294,17 @@
         <h1>Projects</h1>
         <div class="filters-wrap" aria-label="Project filters">
             <div class="filters-label">Filter by tag</div>
-            <div class="categories" id="project-filters"></div>
+            <details class="filter-menu" id="filter-menu">
+                <summary class="filter-summary">
+                    <span class="filter-summary-label">Showing</span>
+                    <span class="filter-summary-value" id="active-filter-label">All</span>
+                    <span class="filter-summary-count" id="active-filter-count"></span>
+                    <span class="filter-chevron" aria-hidden="true">▼</span>
+                </summary>
+                <div class="filter-popover">
+                    <div class="categories" id="project-filters"></div>
+                </div>
+            </details>
         </div>
     </header>
 
@@ -328,7 +399,7 @@
 
         <!-- gCloud Ghost Updater -->
         <article class="project-card">
-            <span class="badge">Script</span>
+            <span class="badge">ghost.org</span>
             <h2 class="project-title">gCloud Ghost Updater</h2>
             <p class="project-description">Automates updating Ghost installations running on Google Cloud VMs.</p>
             <a href="https://github.com/danielraffel/gCloud-Ghost-Updater" class="project-link" target="_blank">View on GitHub</a>
@@ -424,7 +495,7 @@
 
         <!-- SES Email Integration -->
         <article class="project-card">
-            <span class="badge">Ghost.org PR</span>
+            <span class="badge">ghost.org</span>
             <h2 class="project-title">SES Email Integration</h2>
             <p class="project-description">A pluggable email adapter for Ghost.org enabling support for AWS SES and other email providers beyond Mailgun.</p>
             <a href="https://github.com/TryGhost/Ghost/pull/25250" class="project-link" target="_blank">View Pull Request</a>
@@ -511,6 +582,9 @@
 
         (function initProjectTagFilters() {
             const filterRoot = document.getElementById("project-filters");
+            const filterMenu = document.getElementById("filter-menu");
+            const activeFilterLabel = document.getElementById("active-filter-label");
+            const activeFilterCount = document.getElementById("active-filter-count");
             const cards = Array.from(document.querySelectorAll(".project-card"));
             const noResults = document.getElementById("no-filter-results");
 
@@ -558,6 +632,14 @@
                 if (noResults) {
                     noResults.classList.toggle("show", visibleCount === 0);
                 }
+
+                if (activeFilterLabel) {
+                    activeFilterLabel.textContent = activeTag === ALL_TAG ? "All" : activeTag;
+                }
+
+                if (activeFilterCount) {
+                    activeFilterCount.textContent = `(${visibleCount})`;
+                }
             };
 
             filterRoot.addEventListener("click", (event) => {
@@ -569,6 +651,10 @@
 
                 activeTag = chip.dataset.tag || ALL_TAG;
                 applyFilter();
+
+                if (filterMenu) {
+                    filterMenu.open = false;
+                }
             });
 
             applyFilter();
